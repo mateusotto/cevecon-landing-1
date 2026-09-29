@@ -1,0 +1,21 @@
+.marker { display: grid; place-items: center; padding: 0; border: 0; background: transparent; cursor: pointer; font-family: var(--font-v2-text), Arial, sans-serif; }
+.marker[hidden] { display: none; }
+.poi { width: 44px; height: 44px; z-index: 1; }
+.development { width: 64px; height: 64px; z-index: 3; }
+.disc { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #cbb79b; border-radius: 50%; background: #f2ede6; color: #155c53; box-shadow: 0 2px 6px rgb(12 48 44 / 14%); transition: transform 160ms ease, background 160ms ease; }
+.disc svg { width: 17px; height: 17px; stroke-width: 1.7; }
+.development .disc { width: 58px; height: 58px; border: 2px solid #cbb79b; background: #0c302c; color: #f2ede6; box-shadow: 0 0 0 5px rgb(21 92 83 / 12%); }
+.development .disc svg { width: 28px; height: 28px; }
+.label { position: absolute; top: calc(100% + 5px); padding: 5px 9px; background: #0c302c; color: #f2ede6; border: 1px solid #cbb79b; border-radius: 3px; font-size: 11px; font-weight: 600; white-space: nowrap; pointer-events: none; }
+.marker:hover .disc, .marker:focus-visible .disc, .selected .disc { transform: scale(1.1); background: #155c53; color: #f2ede6; }
+.marker:focus-visible { outline: 2px solid #155c53; outline-offset: 3px; border-radius: 50%; }
+.selected { z-index: 4; }
+.popup { z-index: 5; font-family: var(--font-v2-text), Arial, sans-serif; }
+.popup :global(.maplibregl-popup-content) { padding: 20px 30px 18px 18px; border: 1px solid #cbb79b; border-radius: 4px; background: #f2ede6; color: #0c302c; box-shadow: 0 4px 14px rgb(12 48 44 / 14%); }
+.popup :global(.maplibregl-popup-close-button) { width: 28px; height: 28px; font-size: 20px; }
+.popup:global(.maplibregl-popup-anchor-bottom) :global(.maplibregl-popup-tip) { border-top-color: #f2ede6; }
+.popup:global(.maplibregl-popup-anchor-top) :global(.maplibregl-popup-tip) { border-bottom-color: #f2ede6; }
+.content h2 { margin: 0 0 7px; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.content p { margin: 0; font-size: 12px; line-height: 1.5; }
+.content small { display: block; margin-top: 9px; color: #666; font-size: 10px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { .disc { transition: none; } }

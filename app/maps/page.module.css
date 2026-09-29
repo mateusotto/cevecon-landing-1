@@ -1,0 +1,53 @@
+.container {
+  scroll-margin-top: 6rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 6vw, 5rem);
+  width: min(78rem, calc(100% - 5rem));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 5rem) 0;
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
+@keyframes locationReveal {
+  from { opacity: 0; transform: translateY(16px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.container > .cover,
+.container > .explorer,
+.container > .panoramaSection,
+.container > .siteFooter { opacity: 0; animation: locationReveal 700ms cubic-bezier(.22, .7, .2, 1) forwards; }
+.container > .cover { animation-delay: 80ms; }
+.container > .explorer { animation-delay: 180ms; }
+.container > .panoramaSection { animation-delay: 280ms; }
+.container > .siteFooter { animation-delay: 380ms; }
+.cover { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: clamp(20rem, 32vw, 27rem); overflow: hidden; border-radius: 4px; background: #0c302c; color: #fff; }
+.coverImage { grid-column: 2; grid-row: 1; width: 100%; height: 100%; min-height: 100%; object-fit: cover; object-position: center 40%; }
+.cover::before { content: ''; position: absolute; inset: 0; z-index: 1; width: 50%; background: linear-gradient(90deg, #0c302c 0%, #0c302c 72%, rgb(12 48 44 / 0%) 100%); pointer-events: none; }
+.coverText { position: relative; z-index: 2; grid-column: 1; grid-row: 1; align-self: center; max-width: 60rem; padding: clamp(1.5rem, 3.5vw, 3rem); }
+.coverLocation { font-size: .65rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+.coverText h2 { margin: .65rem 0 .8rem; font-size: clamp(2.3rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.05; letter-spacing: -.045em; }
+.coverText p { max-width: 54rem; margin: 0; font-size: .9rem; line-height: 1.7; text-wrap: pretty; }
+@media (max-width: 960px) { .container { width: calc(100% - 3rem); } }
+@media (max-width: 640px) { .cover { min-height: 25rem; grid-template-columns: 1fr; } .coverImage { grid-column: 1; grid-row: 1; min-height: 100%; object-position: 38% center; } .cover::before { width: 100%; height: 100%; background: linear-gradient(180deg, rgb(12 48 44 / 12%) 10%, rgb(12 48 44 / 92%) 100%); } .coverText { grid-column: 1; } }
+@media (max-width: 640px) { .container { width: calc(100% - 2rem); } }
+
+.footerAction { position: fixed; z-index: 30; inset: auto 0 0; display: flex; justify-content: flex-start; padding: 1rem max(1.5rem, env(safe-area-inset-left, 0px)) calc(1rem + env(safe-area-inset-bottom, 0px)); background: transparent; pointer-events: none; }
+.backLink { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .8rem 1.4rem; border: 1px solid rgb(242 237 230 / 35%); border-radius: .65rem; background: #155c53; color: #fff; font-size: .75rem; pointer-events: auto; transition: background 180ms ease, border-color 180ms ease; }
+.backLink:hover { background: rgb(242 237 230 / 8%); border-color: rgb(242 237 230 / 50%); }
+.backLink:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.panoramaSection { padding-top: 2rem; border-top: 1px solid rgb(203 183 155 / 30%); color: #fff; }
+.panoramaSection h2 { max-width: 48rem; margin: .8rem 0 1rem; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 400; line-height: 1.2; letter-spacing: -.035em; text-wrap: balance; }
+.panoramaHint { max-width: 44rem; margin: 0 0 1.5rem; font-size: .85rem; line-height: 1.7; }
+.panoramaFrame { display: block; width: 100%; height: clamp(640px, 75svh, 720px); border: 1px solid rgb(203 183 155 / 30%); border-radius: 4px; background: #0c302c; }
+.panoramaNote { margin: .8rem 0 0; font-size: .7rem; line-height: 1.6; }
+.siteFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgb(203 183 155 / 30%); color: rgb(242 237 230 / 72%); font-size: .68rem; line-height: 1.5; }
+.siteFooter a { color: #f2ede6; text-decoration: underline; text-underline-offset: .2em; }
+
+@media (max-width: 640px) { .footerAction { padding-inline: max(1rem, env(safe-area-inset-left, 0px)); } }
+@media (prefers-reduced-motion: reduce) {
+  .container > .cover,
+  .container > .explorer,
+  .container > .panoramaSection,
+  .container > .siteFooter { opacity: 1; animation: none; }
+}

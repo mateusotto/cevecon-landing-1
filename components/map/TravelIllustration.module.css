@@ -1,0 +1,4 @@
+.group { display: grid; gap: 4px; margin-top: 6px; color: inherit; }
+.values { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+.values > span { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; line-height: 1.5; white-space: nowrap; }
+.group small { font-size: 9px; }
