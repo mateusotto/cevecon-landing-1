@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Building2, MapPin, ShieldCheck, SunMedium, Waves } from 'lucide-react';
 import { Stack_Sans_Text } from 'next/font/google';
 import { Button } from '@/components/ui/button';
@@ -23,8 +23,41 @@ const highlights = [
   { icon: Building2, title: 'Seu novo espaço', detail: '1 e 2 dormitórios' },
 ];
 
+const heroTitles = [
+  'Uma nova experiência CEVECON.',
+  'Novas possibilidades para viver.',
+  'Um novo\ncomeço\nperto de tudo.',
+];
+
 export default function CeveconConcept() {
   const [message, setMessage] = useState('');
+  const [heroTitle, setHeroTitle] = useState('Uma nova experiência CEVECON.');
+  const [heroTitlePhase, setHeroTitlePhase] = useState<'stable' | 'exit' | 'enter'>('stable');
+
+  useEffect(() => {
+    let currentIndex = 0;
+    let titleTimer: number | undefined;
+    let swapTimer: number | undefined;
+
+    const scheduleTitleChange = () => {
+      titleTimer = window.setTimeout(() => {
+        setHeroTitlePhase('exit');
+        swapTimer = window.setTimeout(() => {
+          currentIndex = (currentIndex + 1) % heroTitles.length;
+          setHeroTitle(heroTitles[currentIndex]);
+          setHeroTitlePhase('enter');
+          scheduleTitleChange();
+        }, 500);
+      }, 4200);
+    };
+
+    scheduleTitleChange();
+
+    return () => {
+      if (titleTimer) window.clearTimeout(titleTimer);
+      if (swapTimer) window.clearTimeout(swapTimer);
+    };
+  }, []);
 
   return (
     <main className={`${styles.page} ${text.variable}`}>
@@ -39,12 +72,21 @@ export default function CeveconConcept() {
           <PropertyImage />
           <div className={styles.eyebrow}>
             <span className={styles.eyebrowLine} />
-            CEVECON apresenta
+            Em breve
           </div>
-
-          <h1 id="title-v2" className={styles.title}>
-            <span>Cannan</span>
-            <span>Residence</span>
+          <h1 id="title-v2" className={`${styles.title} ${heroTitlePhase === 'exit' ? styles.titleExit : heroTitlePhase === 'enter' ? styles.titleEnter : ''}`}>
+            {heroTitle.split('\n').map((line, lineIndex) => {
+              const words = line.split(' ');
+              return (
+                <span className={styles.titleLine} key={`${heroTitle}-${lineIndex}`}>
+                  {words.map((word, index) => (
+                    <span className={styles.titleWord} style={{ animationDelay: `${(lineIndex * 2 + index) * 55}ms` }} key={`${heroTitle}-${lineIndex}-${index}`}>
+                      {word}{index < words.length - 1 ? ' ' : ''}
+                    </span>
+                  ))}
+                </span>
+              );
+            })}
           </h1>
 
           <p className={styles.lead}>
@@ -78,7 +120,7 @@ export default function CeveconConcept() {
             <span>Lista prioritária</span>
             <ShieldCheck aria-hidden="true" />
           </div>
-          <h2 id="form-title-v2">Conheça o Cannan antes do lançamento.</h2>
+          <h2 id="form-title-v2">Conheça o projeto antes do lançamento.</h2>
           <p className={styles.formIntro}>Cadastre-se para receber novidades, condições e os primeiros detalhes do projeto.</p>
 
           <form className={styles.form} onSubmit={(event) => { event.preventDefault(); setMessage('Prévia visual — seu cadastro será conectado na próxima etapa.'); }}>

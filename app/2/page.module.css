@@ -72,9 +72,21 @@
 .eyebrowLine { width: 2.6rem; height: 3px; background: #0a2e2a; }
 .eyebrow small { margin-left: auto; color: var(--cevecon-sand); font: inherit; }
 
-.title { margin: 1.8rem 0 1.2rem; font-family: var(--font-v2-text), Arial, sans-serif; font-size: clamp(3.25rem, 5.5vw, 6.35rem); font-weight: 400; line-height: .96; letter-spacing: -.055em; text-transform: uppercase; }
+.title { margin: 2.8rem 0 1.2rem; font-family: var(--font-v2-text), Arial, sans-serif; font-size: clamp(2.275rem, 3.85vw, 4.445rem); font-weight: 400; line-height: .96; letter-spacing: -.055em; text-transform: uppercase; }
 .title span { display: block; }
-.title span:last-child { color: var(--cevecon-sand); font-size: .73em; letter-spacing: -.04em; }
+.title .titleLine { display: block; }
+.title .titleWord { display: inline-block; margin-right: .16em; }
+.title .titleWord:last-child { margin-right: 0; }
+@keyframes titleWordExit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(14px); }
+}
+@keyframes titleWordEnter {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.hero .intro > .titleExit .titleWord { animation: titleWordExit 420ms cubic-bezier(.22, .7, .2, 1) both; }
+.hero .intro > .titleEnter .titleWord { animation: titleWordEnter 560ms cubic-bezier(.22, .7, .2, 1) both; }
 .titleAccent { display: block; width: 4.8rem; height: .55rem; background: linear-gradient(90deg, var(--cevecon-dark) 0 42%, var(--cevecon-turquoise) 42% 72%, var(--cevecon-beige) 72%); }
 .lead { max-width: 36rem; margin: 1.7rem 0 0; color: #c9b49a; font-size: .98rem; line-height: 1.65; }
 
@@ -180,7 +192,7 @@
   .headerMeta { font-size: .56rem; }
   .hero { width: calc(100% - 2rem); gap: 2rem; padding: 2.5rem 0; }
   .eyebrow small { display: none; }
-  .title { margin-top: 1.4rem; font-size: clamp(2.45rem, 13vw, 3.35rem); }
+  .title { margin-top: 2rem; font-size: clamp(1.715rem, 9.1vw, 2.345rem); }
   .lead { font-size: .88rem; }
   .highlights { grid-template-columns: 1fr; }
   .highlight, .highlight + .highlight { padding: .8rem 0; border-right: 0; border-bottom: 1px solid rgb(203 183 155 / 40%); }

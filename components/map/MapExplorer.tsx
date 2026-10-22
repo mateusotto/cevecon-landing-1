@@ -47,7 +47,7 @@ export default function MapExplorer() {
   }
 
   return (
-    <div ref={explorerRef} className={styles.explorer}>
+    <div id="mapa-arredores" ref={explorerRef} className={styles.explorer}>
       <CategoryFilters category={category} onChange={changeCategory} />
       <div className={styles.map}>
         <InteractiveMap places={places} selectedPlaceId={selectedPlaceId} onSelect={selectMarker} focusRevision={focusRevision} />
