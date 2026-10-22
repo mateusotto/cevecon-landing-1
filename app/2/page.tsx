@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Building2, MapPin, ShieldCheck, SunMedium, Waves } from 'lucide-react';
 import { Stack_Sans_Text } from 'next/font/google';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,8 @@ const text = Stack_Sans_Text({
   variable: '--font-v2-text',
 });
 
+const LEADS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzHNv9FDRDAaSPgEdujZF6UeeTv3tMWnLzKfybBLNYeyLMho2OfXa4ib4hswObEWbC6/exec';
+
 const highlights = [
   { icon: Waves, title: 'A poucos passos do mar', detail: '3 quadras da praia' },
   { icon: SunMedium, title: 'Lazer para aproveitar', detail: 'Área de lazer completa' },
@@ -31,6 +33,8 @@ const heroTitles = [
 
 export default function CeveconConcept() {
   const [message, setMessage] = useState('');
+  const [interest, setInterest] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [heroTitle, setHeroTitle] = useState('Uma nova experiência CEVECON.');
   const [heroTitlePhase, setHeroTitlePhase] = useState<'stable' | 'exit' | 'enter'>('stable');
 
@@ -58,6 +62,46 @@ export default function CeveconConcept() {
       if (swapTimer) window.clearTimeout(swapTimer);
     };
   }, []);
+
+  const handleLeadSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = {
+      nome: String(formData.get('name') || '').trim(),
+      whatsapp: String(formData.get('phone') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      interesse: interest,
+      receberNovidades: formData.get('marketingConsent') === 'yes',
+      origem: 'Landing page CEVECON',
+    };
+
+    if (!payload.nome || !payload.whatsapp || !payload.email || !payload.interesse) {
+      setMessage('Preencha nome, WhatsApp, e-mail e interesse para continuar.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage('Enviando seus dados...');
+
+    try {
+      await fetch(LEADS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      form.reset();
+      setInterest('');
+      setMessage('Cadastro enviado com sucesso.');
+    } catch {
+      setMessage('Não foi possível enviar agora. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className={`${styles.page} ${text.variable}`}>
@@ -123,7 +167,7 @@ export default function CeveconConcept() {
           <h2 id="form-title-v2">Conheça o projeto antes do lançamento.</h2>
           <p className={styles.formIntro}>Cadastre-se para receber novidades, condições e os primeiros detalhes do projeto.</p>
 
-          <form className={styles.form} onSubmit={(event) => { event.preventDefault(); setMessage('Prévia visual — seu cadastro será conectado na próxima etapa.'); }}>
+          <form className={styles.form} onSubmit={handleLeadSubmit}>
             <div className={styles.field}>
               <label htmlFor="name-v2">Nome completo</label>
               <Input id="name-v2" name="name" type="text" placeholder="Como você se chama?" className={styles.input} />
@@ -142,7 +186,7 @@ export default function CeveconConcept() {
 
             <div className={styles.field}>
               <label htmlFor="interest-v2">Seu interesse</label>
-              <Select>
+              <Select value={interest} onValueChange={setInterest}>
                 <SelectTrigger id="interest-v2" className={styles.selectTrigger}>
                   <SelectValue placeholder="Como você imagina este novo lugar?" />
                 </SelectTrigger>
@@ -159,8 +203,8 @@ export default function CeveconConcept() {
               <span>Quero receber novidades e comunicações de marketing da CEVECON.</span>
             </label>
 
-            <Button type="submit" className={styles.submit}>
-              Quero receber em primeira mão
+            <Button type="submit" className={styles.submit} disabled={isSubmitting}>
+              {isSubmitting ? 'Enviando...' : 'Quero receber em primeira mão'}
               <span><ArrowUpRight aria-hidden="true" /></span>
             </Button>
 
