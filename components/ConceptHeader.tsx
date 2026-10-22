@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import styles from '@/app/2/page.module.css';
 
 export default function ConceptHeader({ onMap = false }: { onMap?: boolean }) {
@@ -26,7 +25,7 @@ export default function ConceptHeader({ onMap = false }: { onMap?: boolean }) {
         </a>
         <div className={styles.headerMeta}>
           <span>Florianópolis — SC</span>
-          <a href={onMap ? "/#lista-v2" : "#lista-v2"}>Lista de interesse <ArrowUpRight aria-hidden="true" /></a>
+          <span>Pré-lançamento exclusivo</span>
         </div>
       </header>
     </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Stack_Sans_Text } from 'next/font/google';
 import LocationSection from '@/components/map/LocationSection';
@@ -24,7 +25,7 @@ export default function MapsPage() {
       <ConceptHeader onMap />
       <LocationSection />
       <div className={styles.footerAction}>
-        <a href="/" className={styles.backLink}><ArrowLeft size={16} aria-hidden="true" />quero conhecer mais</a>
+        <Link href="/" className={styles.backLink}><ArrowLeft size={16} aria-hidden="true" />quero conhecer mais</Link>
       </div>
     </main>
   );

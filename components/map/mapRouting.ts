@@ -35,3 +35,16 @@ export async function getWalkingRoute(place: MapPlace, signal: AbortSignal): Pro
   cache.set(key, geometry);
   return geometry;
 }
+
+export async function preloadWalkingRoutes(places: MapPlace[], signal: AbortSignal): Promise<void> {
+  for (const place of places) {
+    if (signal.aborted) return;
+    try {
+      await getWalkingRoute(place, signal);
+    } catch (error) {
+      if (signal.aborted) return;
+      // Uma falha individual não impede as demais rotas de serem preparadas.
+      console.warn('Não foi possível pré-carregar a rota', place.name, error);
+    }
+  }
+}

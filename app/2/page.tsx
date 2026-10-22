@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpRight, Building2, MapPin, ShieldCheck, SunMedium, Waves } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Building2, MapPin, ShieldCheck, SunMedium, Waves } from 'lucide-react';
 import { Stack_Sans_Text } from 'next/font/google';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -59,7 +59,7 @@ export default function CeveconConcept() {
               href="#localizacao"
               aria-label="Conferir localização no mapa"
             >
-              Conferir localização <ArrowUpRight aria-hidden="true" />
+              Conferir localização <ArrowDownRight aria-hidden="true" />
             </a>
           </div>
 
@@ -127,11 +127,11 @@ export default function CeveconConcept() {
           </form>
         </aside>
       </section>
-      <button type="button" className={styles.whatsappButton} aria-label="WhatsApp" title="WhatsApp">
+      <a className={styles.whatsappButton} href="https://wa.me/5548998470100" target="_blank" rel="noreferrer" aria-label="Falar pelo WhatsApp" title="Falar pelo WhatsApp">
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <path d="M16 3.2A12.8 12.8 0 0 0 5 22.55L3.2 28.8l6.4-1.78A12.8 12.8 0 1 0 16 3.2Zm0 23.3a10.45 10.45 0 0 1-5.33-1.46l-.38-.23-3.8 1.06 1.02-3.7-.25-.4A10.45 10.45 0 1 1 16 26.5Zm5.74-7.83c-.31-.16-1.83-.9-2.11-1s-.49-.16-.7.16-.8 1-.98 1.2-.36.24-.67.08a8.55 8.55 0 0 1-2.48-1.53 9.3 9.3 0 0 1-1.72-2.13c-.18-.31 0-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.52s.05-.39-.03-.55c-.08-.16-.7-1.69-.96-2.31-.25-.61-.51-.53-.7-.54l-.6-.01a1.16 1.16 0 0 0-.85.4 3.56 3.56 0 0 0-1.1 2.65 6.18 6.18 0 0 0 1.3 3.3 14.22 14.22 0 0 0 5.45 4.8c.76.33 1.35.53 1.81.68a4.35 4.35 0 0 0 2 .13 3.27 3.27 0 0 0 2.14-1.51 2.65 2.65 0 0 0 .18-1.51c-.08-.14-.28-.22-.59-.37Z" />
         </svg>
-      </button>
+      </a>
       <LocationSection />
     </main>
   );

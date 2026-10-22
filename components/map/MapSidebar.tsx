@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { Check } from 'lucide-react';
 import { PLACE_CATEGORIES, type MapPlace, type PlaceCategory } from './mapPlaces';
-import { categoryIcons } from './categoryIcons';
+import { getPlaceIcon } from './categoryIcons';
 import styles from './MapExplorer.module.css';
 import TravelIllustration from './TravelIllustration';
 
@@ -43,10 +43,10 @@ export function PlacesList({ places, selectedPlaceId, onSelect }: {
 
   return (
     <section className={styles.listSection} aria-label="Locais próximos">
-      <p className={styles.count} aria-live="polite">{places.length} {places.length === 1 ? 'local' : 'locais'} · Dados fictícios para teste</p>
+      <p className={styles.count} aria-live="polite">{places.length} {places.length === 1 ? 'local' : 'locais'} · Pontos de referência</p>
       <ul ref={listRef} className={styles.list}>
         {places.map((place) => {
-          const Icon = categoryIcons[place.category];
+          const Icon = getPlaceIcon(place);
           const selected = selectedPlaceId === place.id;
           return (
             <li key={place.id}>

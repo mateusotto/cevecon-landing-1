@@ -1,4 +1,5 @@
 import MapExplorer from './MapExplorer';
+import Link from 'next/link';
 import styles from '@/app/maps/page.module.css';
 import mapStyles from './MapExplorer.module.css';
 
@@ -14,7 +15,7 @@ export default function LocationSection() {
           </div>
         </section>
         <MapExplorer />
-        <section className={styles.panoramaSection} aria-labelledby="panorama-title">
+        <section className={styles.panoramaSection} aria-labelledby="panorama-title" hidden>
           <span className={mapStyles.sectionTitle}>Uma nova perspectiva</span>
           <h2 id="panorama-title">Explore a vista do Cannan Residence.</h2>
           <p className={styles.panoramaHint}>Explore em 360°: arraste a imagem para olhar ao redor e use os controles para aproximar ou abrir em tela cheia.</p>
@@ -31,7 +32,7 @@ export default function LocationSection() {
         <footer className={styles.siteFooter}>
           <span>CEVECON Empreendimentos · CNPJ 12.345.678/0001-90</span>
           <span>Todos os direitos reservados.</span>
-          <a href="https://www.gov.br/esporte/pt-br/acesso-a-informacao/lgpd" target="_blank" rel="noreferrer">LGPD</a>
+          <Link href="/lgpd">LGPD</Link>
         </footer>
       </section>
   );

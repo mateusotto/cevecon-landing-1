@@ -45,6 +45,7 @@
 .siteFooter a { color: #f2ede6; text-decoration: underline; text-underline-offset: .2em; }
 
 @media (max-width: 640px) { .footerAction { padding-inline: max(1rem, env(safe-area-inset-left, 0px)); } }
+@media (max-width: 640px) { .siteFooter { padding-right: 4.75rem; } }
 @media (prefers-reduced-motion: reduce) {
   .container > .cover,
   .container > .explorer,

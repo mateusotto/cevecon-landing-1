@@ -48,7 +48,7 @@ export default function MapRoute({ map, selectedPlaceId, focusRevision }: {
             padding: { top: 110, bottom: 85, left: 45, right: 45 }, maxZoom: 16,
             duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 650,
           });
-          setStatus('Rota a pé · Localização de teste');
+          setStatus('Rota a pé · Trajeto de referência');
         } catch {
           if (!disposed) { clear(); setStatus('Rota indisponível no momento. Selecione o local para tentar novamente.'); }
         }

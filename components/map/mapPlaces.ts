@@ -1,4 +1,4 @@
-export type PlaceCategory = 'education' | 'market' | 'bakery' | 'health' | 'leisure' | 'restaurant';
+export type PlaceCategory = 'education' | 'market' | 'health' | 'leisure' | 'services';
 export interface Coordinates { longitude: number; latitude: number }
 export interface MapPlace {
   id: string;
@@ -13,33 +13,26 @@ export interface MapPlace {
 export const DEVELOPMENT = {
   name: 'Empreendimento',
   address: 'Rua dos Eucaliptos, 43 - Canasvieiras, Florianópolis - SC',
-  // Referência provisória de Canasvieiras, NÃO geocodificada para o número 1302.
-  // Substituir aqui pelas coordenadas confirmadas do empreendimento.
-  coordinates: { longitude: -48.4506985, latitude: -27.4287531 },
+  coordinates: { longitude: -48.450757410027705, latitude: -27.432097087881573 },
   coordinatesConfirmed: true,
 };
 
 export const PLACE_CATEGORIES: Record<PlaceCategory, string> = {
-  education: 'Educação', market: 'Mercados', bakery: 'Padarias e cafés',
-  health: 'Saúde', leisure: 'Lazer', restaurant: 'Gastronomia',
+  education: 'Educação', market: 'Mercados', health: 'Saúde', leisure: 'Lazer', services: 'Serviços',
 };
 
-function nearby(longitudeOffset: number, latitudeOffset: number): Coordinates {
-  return {
-    longitude: DEVELOPMENT.coordinates.longitude + longitudeOffset,
-    latitude: DEVELOPMENT.coordinates.latitude + latitudeOffset,
-  };
-}
-
-// DADOS DE TESTE: locais, posições e distâncias fictícios, sem cálculo de trajetos.
-// Serão substituídos por estabelecimentos reais numa etapa posterior.
 export const MAP_PLACES: MapPlace[] = [
-  { id: 'school-01', name: 'Escola Exemplo', category: 'education', coordinates: nearby(-.0035, .0015), distance: '650 m', isMock: true, illustrativeMinutes: { walking: 7, driving: 10 } },
-  { id: 'market-01', name: 'Mercado Exemplo', category: 'market', coordinates: nearby(.0032, .0018), distance: '800 m', isMock: true, illustrativeMinutes: { walking: 8, driving: 12 } },
-  { id: 'bakery-01', name: 'Padaria Exemplo', category: 'bakery', coordinates: nearby(-.0018, -.0018), distance: '450 m', isMock: true, illustrativeMinutes: { walking: 5, driving: 8 } },
-  { id: 'health-01', name: 'Clínica Exemplo', category: 'health', coordinates: nearby(.0045, -.0027), distance: '1,1 km', isMock: true, illustrativeMinutes: { walking: 11, driving: 15 } },
-  { id: 'leisure-01', name: 'Parque Exemplo', category: 'leisure', coordinates: nearby(-.005, -.0038), distance: '900 m', isMock: true, illustrativeMinutes: { walking: 9, driving: 13 } },
-  { id: 'restaurant-01', name: 'Restaurante Exemplo', category: 'restaurant', coordinates: nearby(.0008, -.004), distance: '700 m', isMock: true, illustrativeMinutes: { walking: 7, driving: 11 } },
-  { id: 'coffee-02', name: 'Café Exemplo', category: 'bakery', coordinates: nearby(.0065, -.005), distance: '1,3 km', isMock: true, illustrativeMinutes: { walking: 13, driving: 17 } },
-  { id: 'market-02', name: 'Supermercado Exemplo', category: 'market', coordinates: nearby(-.007, -.006), distance: '1,5 km', isMock: true, illustrativeMinutes: { walking: 15, driving: 20 } },
+  { id: 'sapiens-parque', name: 'Sapiens Parque', category: 'leisure', coordinates: { longitude: -48.44216876898832, latitude: -27.431175080567886 }, distance: '1,1 km', isMock: false, illustrativeMinutes: { walking: 14, driving: 6 } },
+  { id: 'cevecon-office', name: 'Escritório CEVECON', category: 'services', coordinates: { longitude: -48.44193430193683, latitude: -27.431356677847415 }, distance: '1,1 km', isMock: false, illustrativeMinutes: { walking: 14, driving: 6 } },
+  { id: 'imperatriz', name: 'Supermercado Imperatriz', category: 'market', coordinates: { longitude: -48.457735484610744, latitude: -27.432606944600906 }, distance: '800 m', isMock: false, illustrativeMinutes: { walking: 11, driving: 5 } },
+  { id: 'drogaraia', name: 'Drogaraia', category: 'health', coordinates: { longitude: -48.45802951264426, latitude: -27.432175397009235 }, distance: '850 m', isMock: false, illustrativeMinutes: { walking: 11, driving: 5 } },
+  { id: 'policia-militar', name: 'Polícia Militar', category: 'services', coordinates: { longitude: -48.45830612843382, latitude: -27.433961142650983 }, distance: '900 m', isMock: false, illustrativeMinutes: { walking: 12, driving: 5 } },
+  { id: 'caixa-economica', name: 'Caixa Econômica Federal', category: 'services', coordinates: { longitude: -48.45863605280989, latitude: -27.433902877699722 }, distance: '950 m', isMock: false, illustrativeMinutes: { walking: 12, driving: 5 } },
+  { id: 'acesso-rodovia', name: 'Acesso à rodovia', category: 'services', coordinates: { longitude: -48.458091406091626, latitude: -27.434442730085912 }, distance: '950 m', isMock: false, illustrativeMinutes: { walking: 13, driving: 5 } },
+  { id: 'escola-infantil', name: 'Escola infantil', category: 'education', coordinates: { longitude: -48.4566460377503, latitude: -27.433827034225903 }, distance: '650 m', isMock: false, illustrativeMinutes: { walking: 8, driving: 4 } },
+  { id: 'escola', name: 'Escola', category: 'education', coordinates: { longitude: -48.45600986528081, latitude: -27.432956600902173 }, distance: '600 m', isMock: false, illustrativeMinutes: { walking: 8, driving: 4 } },
+  { id: 'trapiche', name: 'Trapiche de Canasvieiras', category: 'leisure', coordinates: { longitude: -48.45024460145107, latitude: -27.425323203218316 }, distance: '750 m', isMock: false, illustrativeMinutes: { walking: 10, driving: 5 } },
+  { id: 'praia', name: 'Praia de Canasvieiras', category: 'leisure', coordinates: { longitude: -48.450088052546874, latitude: -27.42619259311593 }, distance: '650 m', isMock: false, illustrativeMinutes: { walking: 8, driving: 4 } },
+  { id: 'jbs-inovacao', name: 'Centro de Inovação JBS', category: 'services', coordinates: { longitude: -48.44670843797173, latitude: -27.432168691887753 }, distance: '400 m', isMock: false, illustrativeMinutes: { walking: 5, driving: 3 } },
+  { id: 'angeloni-futuro', name: 'Futuras instalações — Mercado Angeloni', category: 'market', coordinates: { longitude: -48.448642799938696, latitude: -27.432265398184633 }, distance: '200 m', isMock: false, illustrativeMinutes: { walking: 3, driving: 2 } },
 ];

@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { Building2 } from 'lucide-react';
 import type { Map as MapInstance, Marker, Popup } from 'maplibre-gl';
 import { DEVELOPMENT, MAP_PLACES, PLACE_CATEGORIES, type MapPlace, type PlaceCategory } from './mapPlaces';
-import { categoryIcons } from './categoryIcons';
+import { getPlaceIcon } from './categoryIcons';
 import styles from './MapMarkers.module.css';
 import TravelIllustration from './TravelIllustration';
 
@@ -116,7 +116,7 @@ export default function MapMarkers({ map, places, selectedPlaceId, onSelect, foc
   }, [map, views, selectedPlaceId, focusRevision]);
 
   return views.flatMap(({ id, element, category, travelHost, place }) => {
-    const Icon = category ? categoryIcons[category] : Building2;
+    const Icon = place ? getPlaceIcon(place) : Building2;
     return [createPortal(<>
       <span className={styles.disc}><Icon aria-hidden="true" /></span>
       {!category && <span className={styles.label}>Empreendimento</span>}
