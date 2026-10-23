@@ -4,31 +4,38 @@ body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; pa
 .panel-heading h2 { margin: 5px 0 12px; font-size: 17px; font-weight: 500; }
 .view-panel fieldset { border: 0; margin: 0 0 12px; padding: 0; min-width: 0; }
 .view-panel legend { margin-bottom: 8px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
-.building-roof { width: 70%; height: 7px; margin: auto; border: 1px solid rgb(203 183 155 / 40%); border-bottom: 0; }
-.building { border: 1px solid rgb(203 183 155 / 40%); }
-.building-base { height: 5px; margin: 0 -5px; border: 1px solid rgb(203 183 155 / 40%); border-top: 0; }
 .view-panel button { font: inherit; color: #fff; cursor: pointer; }
-.floor { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 7px 9px; border: 0; border-bottom: 1px solid rgb(203 183 155 / 40%); background: transparent; }
-.floor:last-child { border-bottom: 0; }
-.windows { display: flex; gap: 4px; }
-.windows i { width: 8px; height: 12px; border: 1px solid currentColor; }
+.view-controls { display: grid; gap: 5px; }
+.view-option { width: 100%; min-height: 44px; padding: 7px 9px; border: 1px solid rgb(203 183 155 / 40%); border-radius: 4px; background: transparent; text-align: left; }
 .view-panel button[aria-pressed="true"] { background: #f2ede6; color: #0a2e2a; }
 .view-panel button:disabled { opacity: .42; cursor: not-allowed; }
 .view-panel button:not(:disabled):hover { background: rgb(242 237 230 / 8%); }
 .view-panel button[aria-pressed="true"]:hover { background: #f2ede6; }
 .view-panel button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-.time-controls { display: grid; gap: 5px; }
-.time-controls button, .north-control { min-height: 44px; padding: 7px 10px; text-align: left; border: 1px solid rgb(203 183 155 / 40%); border-radius: 4px; background: transparent; }
-.time-controls button span { display: inline-block; width: 23px; }
+.north-control { min-height: 44px; padding: 7px 10px; text-align: left; border: 1px solid rgb(203 183 155 / 40%); border-radius: 4px; background: transparent; }
 .north-control { width: 100%; }
 .north-control span { margin-right: 8px; }
 .view-status { margin: 14px 0 6px; font-size: 11px; }
 .panel-note { margin: 0; font-size: 10px; line-height: 1.5; color: #e2e8e5; }
+.debug-panel { margin-top: 14px; border-top: 1px solid rgb(203 183 155 / 28%); padding-top: 10px; }
+.debug-panel summary { cursor: pointer; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.debug-help { margin: 7px 0 9px; color: #d4dfda; font-size: 10px; line-height: 1.35; }
+.debug-label, .debug-axis label { display: flex; justify-content: space-between; gap: 8px; margin: 6px 0 4px; font-size: 10px; }
+.debug-select { width: 100%; box-sizing: border-box; border: 1px solid rgb(203 183 155 / 40%); border-radius: 4px; padding: 6px; background: #0c302c; color: #fff; font: inherit; }
+.debug-axis input { width: 100%; accent-color: #c8b48d; }
+.debug-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 7px; }
+.debug-copy { width: 100%; padding: 6px; border: 1px solid rgb(203 183 155 / 40%); border-radius: 4px; background: transparent; text-align: center; }
+.debug-output { display: block; min-height: 28px; margin-top: 7px; color: #e6eee9; font: 9px/1.35 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+.pano-hotspot { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid #f2ede6; border-radius: 50%; background: #155c53; color: #f2ede6; box-shadow: 0 0 0 4px rgb(21 92 83 / 24%); font-size: 16px; cursor: grab; animation: pano-pulse 5s ease-in-out infinite; }
+.pano-hotspot-label { --label-shift: 0px; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%) translateY(var(--label-shift)); width: max-content; max-width: 190px; padding: 4px 7px; border: 1px solid rgb(242 237 230 / 35%); border-radius: 4px; background: rgb(12 48 44 / 92%); color: #f2ede6; font: 10px/1.25 Arial, sans-serif; text-align: center; white-space: nowrap; pointer-events: none; }
+.pano-hotspot-icon { display: block; line-height: 1; }
+.pano-hotspot:active { cursor: grabbing; }
+@keyframes pano-pulse { 0%, 74%, 100% { opacity: .92; box-shadow: 0 0 0 4px rgb(21 92 83 / 24%); } 82% { opacity: 1; box-shadow: 0 0 0 9px rgb(21 92 83 / 10%); } 88% { opacity: .78; box-shadow: 0 0 0 4px rgb(21 92 83 / 24%); } }
 .pnlm-controls-container { left: auto; right: 10px; }
 @media (max-width: 540px) {
   body { grid-template-columns: 138px minmax(0, 1fr); gap: 12px; padding: 8px; }
   .view-panel { padding: 4px; }
   .panel-heading h2 { font-size: 14px; margin-bottom: 14px; }
-  .windows { gap: 3px; } .windows i { width: 5px; }
-  .floor { min-height: 44px; padding: 6px; }
+  .view-option { min-height: 44px; padding: 6px; }
+  .debug-panel { margin-top: 10px; }
 }

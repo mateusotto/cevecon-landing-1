@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vista 360° — Cannan Residence</title>
+  <title>Vista 360° — Projeto em Canasvieiras</title>
   <link rel="stylesheet" href="./pannellum.css">
   <link rel="stylesheet" href="./controls.css">
   <style>
@@ -19,9 +19,27 @@
 <body>
   <div id="panorama" role="region" aria-label="Panorama 360 graus. Arraste ou use as setas do teclado para explorar."></div>
   <aside class="view-panel" aria-label="Escolher vista do empreendimento">
-    <div class="panel-heading"><span>CANNAN RESIDENCE</span><h2>Escolha sua vista</h2></div>
-    <fieldset><legend>Andar</legend><div class="building-roof" aria-hidden="true"></div><div id="floor-controls" class="building"></div><div class="building-base" aria-hidden="true"></div></fieldset>
-    <fieldset><legend>Momento do dia</legend><div id="time-controls" class="time-controls"></div></fieldset>
+    <div class="panel-heading"><span>PROJETO EM CANASVIEIRAS</span><h2>Escolha sua vista</h2></div>
+    <fieldset><legend>Selecione a vista</legend><div id="view-controls" class="view-controls"></div></fieldset>
+    <details class="debug-panel" hidden>
+      <summary>Depuração de marcações</summary>
+      <p class="debug-help">Escolha um ponto, ajuste X/Y e salve a posição na vista atual.</p>
+      <label class="debug-label" for="debug-place">Ponto</label>
+      <select id="debug-place" class="debug-select"></select>
+      <div class="debug-axis">
+        <label for="debug-x">X <output id="debug-x-value">0°</output></label>
+        <input id="debug-x" type="range" min="-180" max="180" step="1" value="0">
+      </div>
+      <div class="debug-axis">
+        <label for="debug-y">Y <output id="debug-y-value">0°</output></label>
+        <input id="debug-y" type="range" min="-90" max="90" step="1" value="0">
+      </div>
+      <div class="debug-actions">
+        <button id="debug-save" class="debug-copy" type="button">Salvar posição</button>
+        <button id="debug-copy" class="debug-copy" type="button">Copiar posição</button>
+      </div>
+      <output id="debug-output" class="debug-output" aria-live="polite"></output>
+    </details>
     <button id="north-control" class="north-control" type="button" disabled><span aria-hidden="true">↑ N</span> Ver o norte</button>
     <p id="view-status" class="view-status" role="status"></p>
     <p class="panel-note">Opções indisponíveis aguardam imagens. Norte pendente de orientação.</p>

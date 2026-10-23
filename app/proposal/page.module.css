@@ -1,0 +1,70 @@
+.page { --deep: #0a2e2a; --green: #155c53; --turquoise: #2c9d8f; --sand: #f2ede6; --beige: #cbb79b; position: relative; min-height: 100vh; overflow-x: hidden; background: var(--deep); color: var(--sand); font-family: Arial, sans-serif; scroll-snap-type: y mandatory; }
+.section { position: relative; min-height: 100svh; scroll-snap-align: start; display: flex; align-items: center; overflow: hidden; }
+.sectionInner { position: relative; z-index: 2; width: min(78rem, calc(100% - 8rem)); margin: 0 auto; padding: 7rem 0 5rem; }
+.header { position: fixed; z-index: 20; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; width: min(90rem, calc(100% - 5rem)); height: 5.5rem; margin: auto; left: 0; right: 0; mix-blend-mode: normal; }
+.logoLink img { display: block; width: 11rem; filter: brightness(0) invert(1); }
+.headerMeta { display: flex; align-items: center; gap: 1.5rem; color: rgb(242 237 230 / 70%); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.printButton, .nextButton, .textButton { display: inline-flex; align-items: center; gap: .55rem; border: 0; color: inherit; cursor: pointer; font: inherit; }
+.printButton { padding: .65rem .85rem; border: 1px solid rgb(242 237 230 / 30%); border-radius: 999px; background: rgb(10 46 42 / 35%); font-size: .6rem; }
+.printButton svg { width: .9rem; height: .9rem; }
+.sideNav { position: fixed; z-index: 15; top: 50%; right: 2rem; display: grid; gap: .8rem; transform: translateY(-50%); }
+.navDot, .navDotActive { position: relative; width: 1.7rem; height: 1.7rem; padding: 0; border: 1px solid rgb(242 237 230 / 35%); border-radius: 50%; background: transparent; color: rgb(242 237 230 / 58%); cursor: pointer; font-size: .52rem; }
+.navDotActive { border-color: var(--sand); background: var(--sand); color: var(--deep); }
+.keyboardHint { position: fixed; z-index: 15; right: 2rem; bottom: 1.5rem; display: flex; align-items: center; gap: .25rem; color: rgb(242 237 230 / 45%); font-size: .52rem; letter-spacing: .08em; text-transform: uppercase; }
+.keyboardHint svg { width: .7rem; height: .7rem; }
+.cover { background: linear-gradient(135deg, #155c53, #0a2e2a); }
+.coverBackdrop { position: absolute; inset: 0; opacity: .45; background: linear-gradient(90deg, rgb(10 46 42 / 72%), rgb(10 46 42 / 18%)), url('/projeto-canavieiras.png') center / cover; }
+.coverBackdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(10 46 42 / 20%), var(--deep)); opacity: .55; }
+.eyebrow { display: inline-flex; align-items: center; gap: .7rem; color: var(--beige); font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.eyebrow::before { content: ''; width: 2.5rem; height: 2px; background: var(--turquoise); }
+.coverKicker { max-width: 34rem; margin: 5rem 0 1rem; color: var(--beige); font-size: clamp(1rem, 1.7vw, 1.5rem); line-height: 1.4; }
+.cover h1 { max-width: 60rem; margin: 0; font-size: clamp(4rem, 10vw, 10rem); font-weight: 400; line-height: .87; letter-spacing: -.08em; text-transform: uppercase; }
+.coverDescription { max-width: 34rem; margin: 2rem 0 0; color: rgb(242 237 230 / 76%); font-size: 1rem; line-height: 1.7; }
+.coverDetails { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.5rem; color: var(--sand); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.coverDetails span { display: inline-flex; align-items: center; gap: .4rem; }
+.coverDetails svg { width: .9rem; height: .9rem; color: var(--turquoise); }
+.nextButton { margin-top: 3rem; padding: .85rem 1rem; border: 1px solid rgb(242 237 230 / 38%); border-radius: .5rem; background: var(--green); color: var(--sand); font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.nextButton:hover { background: var(--turquoise); }
+.nextButton svg { width: .95rem; height: .95rem; }
+.lightSection { background: var(--sand); color: var(--deep); }
+.darkSection { background: var(--green); }
+.experienceSection { background: #cbb79b; color: var(--deep); }
+.pricingSection { background: #10473f; }
+.closingSection { background: linear-gradient(135deg, var(--deep), #155c53); }
+.sectionNumber { margin-bottom: 5rem; color: var(--turquoise); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.sectionNumber span { color: currentColor; opacity: .55; }
+h2 { max-width: 55rem; margin: 0; font-size: clamp(3rem, 7vw, 7rem); font-weight: 400; line-height: .92; letter-spacing: -.07em; }
+.twoColumns { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .7fr); gap: 5rem; align-items: end; }
+.bodyCopy { max-width: 28rem; font-size: 1rem; line-height: 1.75; }
+.bodyCopy p + p { margin-top: 1.4rem; }
+.statRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 7rem; border-top: 1px solid currentColor; }
+.statRow div { display: grid; gap: .4rem; padding-top: 1.2rem; border-right: 1px solid rgb(10 46 42 / 18%); }
+.statRow div:last-child { border-right: 0; }
+.statRow strong { font-size: 3rem; font-weight: 400; letter-spacing: -.08em; }
+.statRow span { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .6; }
+.sectionLead { max-width: 38rem; margin: 2rem 0 0; color: rgb(242 237 230 / 72%); font-size: 1rem; line-height: 1.7; }
+.darkSection h2 { max-width: 48rem; }
+.methodGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 6rem; background: rgb(242 237 230 / 20%); }
+.methodGrid > div { min-height: 12rem; padding: 1.5rem; background: var(--green); }
+.methodGrid span { color: var(--beige); font-size: .7rem; letter-spacing: .12em; }
+.methodGrid h3 { margin: 2rem 0 .7rem; font-size: 1.8rem; font-weight: 400; }
+.methodGrid p { max-width: 15rem; margin: 0; color: rgb(242 237 230 / 66%); font-size: .82rem; line-height: 1.55; }
+.experienceLayout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, .6fr); gap: 4rem; align-items: end; }
+.experienceSection .sectionLead { color: rgb(10 46 42 / 65%); }
+.experienceMark { font-size: clamp(2.5rem, 6vw, 6rem); letter-spacing: -.08em; text-transform: uppercase; }
+.experienceMark span { display: block; margin-top: .7rem; font-size: .62rem; font-weight: 700; letter-spacing: .15em; opacity: .6; }
+.experienceLine { display: flex; align-items: center; gap: 1rem; margin-top: 8rem; font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.experienceLine i { width: 3rem; height: 1px; background: var(--deep); opacity: .4; }
+.projectQuote { margin-top: 7rem; color: var(--turquoise); font-size: clamp(2rem, 4vw, 4rem); line-height: 1; letter-spacing: -.06em; }
+.priceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 22rem)); gap: 1rem; margin-top: 5rem; }
+.priceCard { display: grid; gap: .8rem; padding: 2rem; border: 1px solid rgb(242 237 230 / 25%); border-radius: .6rem; background: rgb(242 237 230 / 8%); }
+.priceCardFeatured { background: var(--sand); color: var(--deep); }
+.priceCard span { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+.priceCard strong { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 400; letter-spacing: -.06em; }
+.priceCard small { font-size: .7rem; opacity: .65; }
+.closingActions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; margin-top: 3rem; }
+.textButton { padding: .5rem 0; background: transparent; color: var(--sand); font-size: .68rem; text-transform: uppercase; }
+.textButton svg { width: .9rem; height: .9rem; }
+.footer { margin-top: 8rem; padding-top: 1rem; border-top: 1px solid rgb(242 237 230 / 25%); color: rgb(242 237 230 / 55%); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 800px) { .sectionInner { width: calc(100% - 3rem); padding: 6.5rem 0 4rem; } .header { width: calc(100% - 2rem); height: 4.5rem; } .logoLink img { width: 8.5rem; } .headerMeta > span, .keyboardHint { display: none; } .sideNav { right: .8rem; } .twoColumns, .experienceLayout { grid-template-columns: 1fr; gap: 2rem; } .sectionNumber { margin-bottom: 3rem; } .statRow { margin-top: 4rem; } .methodGrid, .priceGrid { grid-template-columns: 1fr; margin-top: 3.5rem; } .experienceLine { flex-wrap: wrap; margin-top: 4rem; } .coverKicker { margin-top: 3rem; } .cover h1 { font-size: clamp(3.4rem, 17vw, 6rem); } }
+@media print { .page { background: #fff; color: #0a2e2a; scroll-snap-type: none; } .section { min-height: 100vh; page-break-after: always; break-after: page; } .header, .sideNav, .keyboardHint, .printButton, .nextButton, .textButton { display: none !important; } .sectionInner { width: 86%; padding: 2rem 0; } .coverBackdrop { opacity: .25; } .cover, .darkSection, .pricingSection, .closingSection { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }

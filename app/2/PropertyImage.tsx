@@ -40,8 +40,8 @@ export default function PropertyImage() {
   return (
     <figure ref={imageRef} className={styles.propertyImage}>
       <img
-        src="/cannan-residence.png"
-        alt="Vista aérea do Cannan Residence em Canasvieiras"
+        src="/projeto-canavieiras.png"
+        alt="Vista aérea do projeto em Canasvieiras"
         width={1080}
         height={1350}
         decoding="async"

@@ -1,7 +1,7 @@
 'use client';
 
 import { type FormEvent, useEffect, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, Building2, MapPin, ShieldCheck, SunMedium, Waves } from 'lucide-react';
+import { ArrowDownRight, ArrowLeft, ArrowUpRight, Building2, MapPin, SunMedium, Waves } from 'lucide-react';
 import { Stack_Sans_Text } from 'next/font/google';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,6 +19,14 @@ const text = Stack_Sans_Text({
 
 const LEADS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzHNv9FDRDAaSPgEdujZF6UeeTv3tMWnLzKfybBLNYeyLMho2OfXa4ib4hswObEWbC6/exec';
 
+const formatWhatsapp = (value: string) => {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (!digits) return '';
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
 const highlights = [
   { icon: Waves, title: 'A poucos passos do mar', detail: '3 quadras da praia' },
   { icon: SunMedium, title: 'Lazer para aproveitar', detail: 'Área de lazer completa' },
@@ -34,7 +42,9 @@ const heroTitles = [
 export default function CeveconConcept() {
   const [message, setMessage] = useState('');
   const [interest, setInterest] = useState('');
+  const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedName, setSubmittedName] = useState('');
   const [heroTitle, setHeroTitle] = useState('Uma nova experiência CEVECON.');
   const [heroTitlePhase, setHeroTitlePhase] = useState<'stable' | 'exit' | 'enter'>('stable');
 
@@ -78,6 +88,17 @@ export default function CeveconConcept() {
       origem: 'Landing page CEVECON',
     };
 
+    const normalizedPhone = payload.whatsapp.replace(/\D/g, '');
+    if (!/^\d{2}9\d{8}$/.test(normalizedPhone)) {
+      setMessage('Digite um WhatsApp válido com DDD, 9 e mais 8 dígitos.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      setMessage('Digite um e-mail válido com @ e domínio.');
+      return;
+    }
+
     if (!payload.nome || !payload.whatsapp || !payload.email || !payload.interesse) {
       setMessage('Preencha nome, WhatsApp, e-mail e interesse para continuar.');
       return;
@@ -93,9 +114,11 @@ export default function CeveconConcept() {
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
       });
+      setSubmittedName(payload.nome.split(/\s+/)[0]);
       form.reset();
       setInterest('');
-      setMessage('Cadastro enviado com sucesso.');
+      setPhone('');
+      setMessage('');
     } catch {
       setMessage('Não foi possível enviar agora. Tente novamente.');
     } finally {
@@ -160,14 +183,20 @@ export default function CeveconConcept() {
         </div>
 
         <aside id="lista-v2" className={styles.formPanel} aria-labelledby="form-title-v2">
-          <div className={styles.formTopline}>
-            <span>Lista prioritária</span>
-            <ShieldCheck aria-hidden="true" />
-          </div>
-          <h2 id="form-title-v2">Conheça o projeto antes do lançamento.</h2>
-          <p className={styles.formIntro}>Cadastre-se para receber novidades, condições e os primeiros detalhes do projeto.</p>
+          {submittedName ? (
+            <div className={styles.successState} role="status" aria-live="polite">
+              <span className={styles.successMark}>✓</span>
+              <h2>Obrigado, {submittedName}.</h2>
+              <p>Seu cadastro foi realizado com sucesso.</p>
+              <p>A partir de agora, você está entre os primeiros a receber novidades, informações e atualizações sobre a nova experiência CEVECON em Canasvieiras.</p>
+              <button type="button" className={styles.successBackButton} onClick={() => { setSubmittedName(''); setMessage(''); }}><ArrowLeft aria-hidden="true" /> Voltar ao formulário</button>
+            </div>
+          ) : (
+            <>
+              <h2 id="form-title-v2">Conheça o projeto antes do lançamento.</h2>
+              <p className={styles.formIntro}>Cadastre-se para receber novidades, condições e os primeiros detalhes do projeto.</p>
 
-          <form className={styles.form} onSubmit={handleLeadSubmit}>
+              <form className={styles.form} onSubmit={handleLeadSubmit}>
             <div className={styles.field}>
               <label htmlFor="name-v2">Nome completo</label>
               <Input id="name-v2" name="name" type="text" placeholder="Como você se chama?" className={styles.input} />
@@ -176,7 +205,7 @@ export default function CeveconConcept() {
             <div className={styles.fieldRow}>
               <div className={styles.field}>
                 <label htmlFor="phone-v2">WhatsApp</label>
-                <Input id="phone-v2" name="phone" type="tel" placeholder="(00) 00000-0000" className={styles.input} />
+              <Input id="phone-v2" name="phone" type="tel" inputMode="numeric" autoComplete="tel" maxLength={15} placeholder="(00) 00000-0000" className={styles.input} value={phone} onChange={(event) => setPhone(formatWhatsapp(event.target.value))} />
               </div>
               <div className={styles.field}>
                 <label htmlFor="email-v2">E-mail</label>
@@ -194,6 +223,7 @@ export default function CeveconConcept() {
                   <SelectItem value="morar">Para morar</SelectItem>
                   <SelectItem value="investir">Para investir</SelectItem>
                   <SelectItem value="conhecer">Quero conhecer o projeto</SelectItem>
+                  <SelectItem value="corretor">Sou corretor(a) de imóveis</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -206,11 +236,14 @@ export default function CeveconConcept() {
             <Button type="submit" className={styles.submit} disabled={isSubmitting}>
               {isSubmitting ? 'Enviando...' : 'Quero receber em primeira mão'}
               <span><ArrowUpRight aria-hidden="true" /></span>
+              {isSubmitting && <span className={styles.buttonProgress} aria-hidden="true" />}
             </Button>
 
             <p className={styles.privacy}>Seus dados serão usados apenas para comunicações sobre este lançamento e novidades da CEVECON.</p>
             <p className={styles.message} aria-live="polite">{message}</p>
-          </form>
+              </form>
+            </>
+          )}
         </aside>
       </section>
       <a className={styles.whatsappButton} href="https://wa.me/5548998470100" target="_blank" rel="noreferrer" aria-label="Falar pelo WhatsApp" title="Falar pelo WhatsApp">

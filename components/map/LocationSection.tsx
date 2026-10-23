@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
 import MapExplorer from './MapExplorer';
 import Link from 'next/link';
 import styles from '@/app/maps/page.module.css';
@@ -18,7 +18,7 @@ const coverSlides = [
   },
   {
     id: 'conexao',
-    image: '/canasvieiras-acesso-espelhada.jpg',
+    image: '/canasvieiras-slider-2.png',
     alt: 'Imagem aérea do acesso a Canasvieiras',
     location: 'Canasvieiras · Florianópolis',
     title: 'Morar bem também é estar bem conectado.',
@@ -26,7 +26,7 @@ const coverSlides = [
   },
   {
     id: 'futuro',
-    image: '/canasvieiras-completa.jpg',
+    image: '/canasvieiras-slider-3.jpg',
     alt: 'Vista aérea de Canasvieiras e sua estrutura urbana',
     location: 'Canasvieiras · Florianópolis',
     title: 'Tudo o que você precisa, mais perto de casa.',
@@ -36,7 +36,16 @@ const coverSlides = [
 
 export default function LocationSection() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const slide = coverSlides[activeSlide];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = window.setTimeout(() => {
+      setActiveSlide((current) => (current + 1) % coverSlides.length);
+    }, 4000);
+    return () => window.clearTimeout(timer);
+  }, [activeSlide, isPaused]);
 
   const moveSlide = (direction: number) => {
     setActiveSlide((current) => (current + direction + coverSlides.length) % coverSlides.length);
@@ -45,7 +54,19 @@ export default function LocationSection() {
   return (
       <section id="localizacao" className={styles.container} aria-label="Localização do empreendimento">
         <section className={styles.cover} aria-labelledby="canasvieiras-title">
-          <img key={slide.id} className={`${styles.coverImage} ${styles.coverSlideEnter}`} src={slide.image} alt={slide.alt} width={3840} height={2156} loading="lazy" />
+          <div className={styles.coverImages} aria-hidden="true">
+            {coverSlides.map((item, index) => (
+              <img
+                key={item.id}
+                className={`${styles.coverImage} ${index === activeSlide ? styles.coverImageActive : ''}`}
+                src={item.image}
+                alt=""
+                width={3840}
+                height={2156}
+                loading="eager"
+              />
+            ))}
+          </div>
           <div key={`${slide.id}-text`} className={`${styles.coverText} ${styles.coverSlideEnter}`} aria-live="polite">
             <span className={styles.coverLocation}>{slide.location}</span>
             <h2 id="canasvieiras-title">{slide.title}</h2>
@@ -57,16 +78,19 @@ export default function LocationSection() {
             )}
           </div>
           <div className={styles.coverControls} aria-label="Navegação das informações de localização">
-            <span className={styles.coverProgress} aria-hidden="true"><span style={{ width: `${((activeSlide + 1) / coverSlides.length) * 100}%` }} /></span>
+            <span className={styles.coverProgress} aria-hidden="true"><span key={activeSlide} style={{ animationPlayState: isPaused ? 'paused' : 'running' }} /></span>
             <span className={styles.coverCounter}>{String(activeSlide + 1).padStart(2, '0')} / {String(coverSlides.length).padStart(2, '0')}</span>
             <button type="button" className={styles.coverArrow} onClick={() => moveSlide(-1)} aria-label="Ver informação anterior"><ArrowLeft aria-hidden="true" /></button>
             <button type="button" className={styles.coverArrow} onClick={() => moveSlide(1)} aria-label="Ver próxima informação"><ArrowRight aria-hidden="true" /></button>
+            <button type="button" className={styles.coverArrow} onClick={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? 'Retomar troca automática' : 'Pausar troca automática'}>
+              {isPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+            </button>
           </div>
         </section>
         <MapExplorer />
-        <section className={styles.panoramaSection} aria-labelledby="panorama-title" hidden>
+        <section className={styles.panoramaSection} aria-labelledby="panorama-title">
           <span className={mapStyles.sectionTitle}>Uma nova perspectiva</span>
-          <h2 id="panorama-title">Explore a vista do Cannan Residence.</h2>
+          <h2 id="panorama-title">Explore a vista do projeto.</h2>
           <p className={styles.panoramaHint}>Explore em 360°: arraste a imagem para olhar ao redor e use os controles para aproximar ou abrir em tela cheia.</p>
           <iframe
             className={styles.panoramaFrame}
