@@ -8,7 +8,8 @@
   min-height: 100vh;
   min-height: 100svh;
   padding-top: 6rem;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   background: linear-gradient(135deg, #155c53, #0a2e2a);
   color: var(--cevecon-sand);
   font-family: var(--font-v2-text), Arial, sans-serif;
@@ -72,7 +73,7 @@
 .eyebrowLine { width: 2.6rem; height: 3px; background: #0a2e2a; }
 .eyebrow small { margin-left: auto; color: var(--cevecon-sand); font: inherit; }
 
-.title { margin: 2.8rem 0 1.2rem; font-family: var(--font-v2-text), Arial, sans-serif; font-size: clamp(2.275rem, 3.85vw, 4.445rem); font-weight: 400; line-height: .96; letter-spacing: -.055em; text-transform: uppercase; }
+.title { margin: 2.8rem 0 1.2rem; font-family: var(--font-v2-text), Arial, sans-serif; font-size: clamp(2.275rem, 3.85vw, 4.445rem); font-weight: 300; line-height: .96; letter-spacing: -.055em; text-transform: uppercase; }
 .title span { display: block; }
 .title .titleLine { display: block; }
 .title .titleWord { display: inline-block; margin-right: .16em; }
@@ -200,18 +201,23 @@
 
 @media (max-width: 640px) {
     .page { padding-top: 4.75rem; }
-    .header { width: calc(100% - 2rem); height: 4.75rem; }
-  .logoLink { width: 9.5rem; }
+    .header { position: relative; width: calc(100% - 2rem); height: 4.75rem; justify-content: center; }
+  .logoLink { width: min(15.1rem, 86vw); }
+  .headerMeta { display: none; }
   .headerMeta > span { display: none; }
   .headerMeta { font-size: .56rem; }
   .hero { width: calc(100% - 2rem); gap: 2rem; padding: 2.5rem 0; }
   .eyebrow small { display: none; }
   .title { margin-top: 2rem; font-size: clamp(1.715rem, 9.1vw, 2.345rem); }
-  .lead { font-size: .88rem; }
-  .highlights { grid-template-columns: 1fr; }
-  .highlight, .highlight + .highlight { padding: .8rem 0; border-right: 0; border-bottom: 1px solid rgb(203 183 155 / 40%); }
+  .lead { max-width: 30rem; margin-inline: auto; font-size: .88rem; text-align: center; }
+  .location { align-items: center; flex-direction: column; justify-content: flex-start; width: 100%; margin-top: 1rem; padding-top: 0; border-top: 0; text-align: center; }
+  .location > span, .location div { display: none; }
+  .locationLink { align-self: center; margin-left: 0; }
+  .highlights { grid-template-columns: 1fr; margin-top: 1.15rem; }
+  .highlight, .highlight + .highlight { justify-content: center; padding: .8rem 0; border-right: 0; border-bottom: 1px solid rgb(203 183 155 / 40%); }
+  .highlight div { text-align: center; }
   .highlight:last-child { border-bottom: 0; }
-  .formPanel { padding: 2rem 1.25rem 1.5rem; border-radius: 0 1.6rem 0 0; }
+  .formPanel { padding: 1.5rem 1rem 1.25rem; border-radius: 0 1.6rem 0 0; }
   .fieldRow { grid-template-columns: 1fr; gap: 1rem; }
   .submit { font-size: .56rem; letter-spacing: .08em; }
 }
@@ -249,7 +255,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
 
 }
 @media (min-width: 1021px) {
@@ -269,16 +275,23 @@
 @media (max-width: 640px) {
   .intro { padding-top: 0; }
   .propertyImage {
-    position: relative;
+    position: absolute;
+    left: 50%;
     right: auto;
-    width: min(75%, 20rem);
-    height: 22rem;
-    margin: 0 0 1.5rem auto;
-    mask-image: linear-gradient(to bottom, #000 85%, transparent);
+    top: 0;
+    width: 80%;
+    height: 28rem;
+    margin: 0;
+    border-radius: .25rem 1.6rem .25rem .25rem;
+    transform: translate3d(-50%, 0, 0) !important;
+    mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
   }
+  .propertyImagePhoto { object-position: 50% center; }
+  .intro > .eyebrow { position: relative; z-index: 1; justify-content: center; padding-top: 1rem; }
+  .intro > .title { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 7rem; margin-top: 19rem; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce), (hover: none) {
-  .propertyImage { transform: none !important; transition: none; }
+  .propertyImage { transition: none; }
 }
 
 @view-transition { navigation: auto; }

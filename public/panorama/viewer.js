@@ -1,5 +1,6 @@
 const views = window.panoramaViews;
 let selected = views[0];
+const mapMarkersEnabled = false;
 
 // Camada temporária para posicionar os pontos antes de fixá-los no projeto.
 const debugPlaces = [
@@ -65,7 +66,8 @@ function getHotspot(view, place = debugPlace) {
 }
 
 function getHotspots(view) {
-  return view.id === 'terrain' ? debugPlaces.map((place) => getHotspot(view, place)) : [];
+  // Marcadores do mapa temporariamente desativados; as posições continuam preservadas para reativação futura.
+  return [];
 }
 
 const viewer = window.pannellum.viewer('panorama', {
@@ -149,7 +151,7 @@ debugSelect.addEventListener('change', () => {
   const previousId = `debug-${debugPlace.id}`;
   try { viewer.removeHotSpot(previousId, selected.id); } catch { /* cena ainda pode estar carregando */ }
   debugPlace = debugPlaces.find((place) => place.id === debugSelect.value) ?? debugPlaces[0];
-  if (selected.id === 'terrain') viewer.addHotSpot(getHotspot(selected), selected.id);
+  if (mapMarkersEnabled && selected.id === 'terrain') viewer.addHotSpot(getHotspot(selected), selected.id);
   updateDebugControls();
 });
 debugX.addEventListener('input', () => { currentPosition().yaw = Number(debugX.value); replaceHotspot(); });
@@ -173,7 +175,7 @@ function selectView(view) {
   selected = view;
   viewer.loadScene(view.id, -8, 0, 100);
   try { viewer.removeHotSpot(`debug-${debugPlace.id}`, selected.id); } catch { /* marcador inicial da cena */ }
-  if (selected.id === 'terrain') viewer.addHotSpot(getHotspot(selected), selected.id);
+  if (mapMarkersEnabled && selected.id === 'terrain') viewer.addHotSpot(getHotspot(selected), selected.id);
   updateControls(); updateDebugControls();
 }
 

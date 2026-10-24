@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowDown, ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from 'lucide-react';
 import MapExplorer from './MapExplorer';
 import Link from 'next/link';
 import styles from '@/app/maps/page.module.css';
@@ -10,7 +10,7 @@ import mapStyles from './MapExplorer.module.css';
 const coverSlides = [
   {
     id: 'canasvieiras',
-    image: '/canasvieiras.jpg',
+    image: '/canasvieiras.webp',
     alt: 'Vista aérea da praia e da orla de Canasvieiras, em Florianópolis',
     location: 'Florianópolis · Santa Catarina',
     title: 'Conheça Canasvieiras',
@@ -18,7 +18,7 @@ const coverSlides = [
   },
   {
     id: 'conexao',
-    image: '/canasvieiras-slider-2.png',
+    image: '/canasvieiras-slider-2.webp',
     alt: 'Imagem aérea do acesso a Canasvieiras',
     location: 'Canasvieiras · Florianópolis',
     title: 'Morar bem também é estar bem conectado.',
@@ -26,7 +26,7 @@ const coverSlides = [
   },
   {
     id: 'futuro',
-    image: '/canasvieiras-slider-3.jpg',
+    image: '/canasvieiras-slider-3.webp',
     alt: 'Vista aérea de Canasvieiras e sua estrutura urbana',
     location: 'Canasvieiras · Florianópolis',
     title: 'Tudo o que você precisa, mais perto de casa.',
@@ -101,6 +101,9 @@ export default function LocationSection() {
             aria-describedby="panorama-note"
           />
           <p id="panorama-note" className={styles.panoramaNote}>Imagem ilustrativa para demonstração da experiência 360°. Não representa a vista real do empreendimento.</p>
+          <Link className={styles.siteCta} href="#lista-v2">
+            Quero receber em primeira mão <ArrowUpRight aria-hidden="true" />
+          </Link>
         </section>
         <footer className={styles.siteFooter}>
           <span>CEVECON Empreendimentos · CNPJ 12.345.678/0001-90</span>

@@ -33,9 +33,11 @@ body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; pa
 @keyframes pano-pulse { 0%, 74%, 100% { opacity: .92; box-shadow: 0 0 0 4px rgb(21 92 83 / 24%); } 82% { opacity: 1; box-shadow: 0 0 0 9px rgb(21 92 83 / 10%); } 88% { opacity: .78; box-shadow: 0 0 0 4px rgb(21 92 83 / 24%); } }
 .pnlm-controls-container { left: auto; right: 10px; }
 @media (max-width: 540px) {
-  body { grid-template-columns: 138px minmax(0, 1fr); gap: 12px; padding: 8px; }
-  .view-panel { padding: 4px; }
+  body { display: flex; flex-direction: column; gap: 12px; padding: 8px; overflow: hidden; }
+  .view-panel { order: 1; flex: 0 0 auto; padding: 4px; }
+  #panorama { order: 2; flex: 1 1 0; width: 100%; height: auto; min-height: 320px; }
   .panel-heading h2 { font-size: 14px; margin-bottom: 14px; }
+  .view-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .view-option { min-height: 44px; padding: 6px; }
   .debug-panel { margin-top: 10px; }
 }
