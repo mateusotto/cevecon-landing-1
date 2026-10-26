@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { type MouseEvent, useEffect, useState } from 'react';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from 'lucide-react';
 import MapExplorer from './MapExplorer';
 import Link from 'next/link';
@@ -51,6 +51,14 @@ export default function LocationSection() {
     setActiveSlide((current) => (current + direction + coverSlides.length) % coverSlides.length);
   };
 
+  const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `#${id}`);
+  };
+
   return (
       <section id="localizacao" className={styles.container} aria-label="Localização do empreendimento">
         <section className={styles.cover} aria-labelledby="canasvieiras-title">
@@ -72,7 +80,7 @@ export default function LocationSection() {
             <h2 id="canasvieiras-title">{slide.title}</h2>
             <p>{slide.text}</p>
             {slide.id === 'futuro' && (
-              <Link className={styles.coverExplore} href="#mapa-arredores">
+              <Link className={styles.coverExplore} href="#mapa-arredores" onClick={(event) => scrollToSection(event, 'mapa-arredores')}>
                 Explore os arredores <ArrowDown aria-hidden="true" />
               </Link>
             )}
@@ -101,7 +109,7 @@ export default function LocationSection() {
             aria-describedby="panorama-note"
           />
           <p id="panorama-note" className={styles.panoramaNote}>Imagem ilustrativa para demonstração da experiência 360°. Não representa a vista real do empreendimento.</p>
-          <Link className={styles.siteCta} href="#lista-v2">
+          <Link className={styles.siteCta} href="#lista-v2" onClick={(event) => scrollToSection(event, 'lista-v2')}>
             Quero receber em primeira mão <ArrowUpRight aria-hidden="true" />
           </Link>
         </section>
